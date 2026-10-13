@@ -1,0 +1,1 @@
+Route::get('/tasks', 'TaskController@index');
