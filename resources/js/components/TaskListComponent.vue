@@ -13,7 +13,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <!-- べた書きで表示していた３行のデータ-->
+            <!-- <tr>
                 <th scope = "row">1</th>
                 <td>Title</td>
                 <td>Content1</td>
@@ -69,6 +70,25 @@
                 <td>
                     <button class="btn btn-danger">Delete</button>
                 </td>
+            </tr> -->
+            <tr v-for="(task,index) in tasks" :key="index">
+                <th scope="row">{{ task.id }}</th>
+                <td>{{  task.title }}</td>
+                <td>{{  task.content }}</td>
+                <td>{{  task.personal_in_charge }}</td>
+                <td>
+                    <router-link v-bind:to="{name: 'task.show', params: {taskId: task.id}}">
+                        <button class="btn btn-primary">Show</button>
+                    </router-link>
+                </td>
+                <td>
+                    <router-link v-bind:to="{name: 'task.edit', params: {taskId: task.id}}">
+                        <button class="btn btn-success">Edit</button>
+                    </router-link>
+                </td>
+                <td>
+                    <button class="btn btn-danger">Delete</button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -76,5 +96,22 @@
 </template>
 
 <script>
-    export default {}
+    export default {
+        data: function() {
+            return{
+                tasks: []
+            }
+        },
+        methods: {
+            getTasks() {
+                axios.get('/api/tasks')
+                    .then((res) =>{
+                        this.tasks = res.data;
+                    });
+            }
+        },
+        mounted() {
+            this.getTasks();
+        }
+    }
 </script>

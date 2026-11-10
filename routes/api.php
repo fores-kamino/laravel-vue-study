@@ -1,5 +1,9 @@
-Route::get('/tasks', 'TaskController@index');
-Route::post('/tasks', 'TaskController@store');
-Route::get('/tasks/{task}', 'TaskController@show');
-Route::put('/tasks/{task}', 'TaskController@update');
-Route::delete('/tasks/{task}', 'TaskController@destroy');
+<?php
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+
+Route::get('/tasks', [TaskController::class, 'index']);
+Route::post('/tasks', [TaskController::class, 'store']);
+Route::get('/tasks/{task}', [TaskController::class, 'show']);
+Route::put('/tasks/{task}', [TaskController::class, 'update']);
+Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
